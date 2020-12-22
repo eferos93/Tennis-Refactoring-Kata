@@ -20,22 +20,7 @@ public class TennisGame1 implements TennisGame {
         int tempScore=0;
         if (arePlayerScoresEven(player1.getScore(), player2.getScore()))
         {
-            switch (player1.getScore())
-            {
-                case 0:
-                        score = "Love-All";
-                    break;
-                case 1:
-                        score = "Fifteen-All";
-                    break;
-                case 2:
-                        score = "Thirty-All";
-                    break;
-                default:
-                        score = "Deuce";
-                    break;
-                
-            }
+            return scoreEvenScores(player1.getScore());
         }
         else if (player1.getScore() >= 4 || player2.getScore() >= 4)
         {
@@ -69,6 +54,27 @@ public class TennisGame1 implements TennisGame {
             }
         }
         return score;
+    }
+
+    private String scoreEvenScores(int playersScore) {
+        String finalScore = "";
+        switch (playersScore)
+        {
+            case 0:
+                finalScore = "Love-All";
+                break;
+            case 1:
+                finalScore = "Fifteen-All";
+                break;
+            case 2:
+                finalScore = "Thirty-All";
+                break;
+            default:
+                finalScore = "Deuce";
+                break;
+
+        }
+        return finalScore;
     }
 
     private boolean arePlayerScoresEven(int score, int score2) {
