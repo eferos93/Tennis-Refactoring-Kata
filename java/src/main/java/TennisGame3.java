@@ -11,7 +11,7 @@ public class TennisGame3 implements TennisGame {
         this.p2N = p2N;
     }
 
-    public String getScore() {
+    public String getFinalScore() {
         String s;
         if (p1 < 4 && p2 < 4 && !(p1 + p2 == 6)) {
             String[] p = new String[]{"Love", "Fifteen", "Thirty", "Forty"}; 

@@ -10,7 +10,7 @@ public class TennisGame1 implements TennisGame {
         private final static String[] defaults = {"Love", "Fifteen", "Thirty", "Forty"};
 
     }
-    private Player player1, player2;
+    private final Player player1, player2;
 
     public TennisGame1(String player1Name, String player2Name) {
         this.player1 = new Player(player1Name);
@@ -24,7 +24,7 @@ public class TennisGame1 implements TennisGame {
             player2.increaseScore();
     }
 
-    public String getScore() {
+    public String getFinalScore() {
 
         if (player1.isPlayerScoreEqualTo(player2.getScore())) {
             return finalResultEvenScores(player1.getScore());
