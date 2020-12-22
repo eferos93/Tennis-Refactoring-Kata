@@ -26,11 +26,11 @@ public class TennisGame1 implements TennisGame {
     public String getScore() {
         String score = "";
         int tempScore=0;
-        if (arePlayerScoresEven(player1.getScore(), player2.getScore()))
+        if (arePlayerScoresEqual())
         {
             return finalResultEvenScores(player1.getScore());
         }
-        else if (player1.getScore() >= 4 || player2.getScore() >= 4)
+        else if (isWinOrTie())
         {
             int minusResult = player1.getScore() - player2.getScore();
             if (minusResult==1) score ="Advantage player1";
@@ -64,6 +64,10 @@ public class TennisGame1 implements TennisGame {
         return score;
     }
 
+    private boolean isWinOrTie() {
+        return player1.getScore() >= 4 || player2.getScore() >= 4;
+    }
+
     private String finalResultEvenScores(int playersScore) {
         if (playersScore >= 3) {
             return Outputs.DEUCE;
@@ -72,7 +76,7 @@ public class TennisGame1 implements TennisGame {
         return Outputs.defaults[playersScore] + "-" + Outputs.ALL;
     }
 
-    private boolean arePlayerScoresEven(int score, int score2) {
-        return score == score2;
+    private boolean arePlayerScoresEqual() {
+        return player1.getScore() == player2.getScore();
     }
 }
