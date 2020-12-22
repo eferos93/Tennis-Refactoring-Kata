@@ -29,10 +29,10 @@ public class TennisGame1 implements TennisGame {
         if (player1.isPlayerScoreEqualTo(player2.getScore())) {
             return finalResultEvenScores(player1.getScore());
         } else if (isWinOrTie()) {
-            return player1.getNameOfThePlayerInAdvantage(player2).
+            return getNameOfThePlayerInAdvantage(player1, player2).
                     map(playerName -> String.format(Outputs.ADVANTAGE, playerName)). //get player's name in advantage
                     or(() -> Optional.of(String.format(Outputs.WIN,                  //otherwise, get winner's name
-                            player1.getNameOfTheWinningPlayer(player2).get()))).
+                            getNameOfTheWinningPlayer(player1, player2).get()))).
                     get();
         }
 
@@ -43,6 +43,29 @@ public class TennisGame1 implements TennisGame {
 
     }
 
+    private Optional<String> getNameOfThePlayerInAdvantage(Player firstPlayer,
+                                                           Player secondPlayer) {
+        int minScore = firstPlayer.getScore() - secondPlayer.getScore();
+        if (minScore == 1) {
+            return Optional.of(firstPlayer.getName());
+        } else if (minScore == -1){
+            return Optional.of(secondPlayer.getName());
+        } else {
+            return Optional.empty();
+        }
+    }
+
+    public Optional<String> getNameOfTheWinningPlayer(Player firstPlayer,
+                                                      Player secondPlayer) {
+        int minScore = firstPlayer.getScore() - secondPlayer.getScore();
+        if (minScore >= 2) {
+            return Optional.of(firstPlayer.getName());
+        } else if (minScore <= -2) {
+            return Optional.of(secondPlayer.getName());
+        } else {
+            return Optional.empty();
+        }
+    }
 
     private boolean isWinOrTie() {
         return player1.getScore() >= 4 || player2.getScore() >= 4;
