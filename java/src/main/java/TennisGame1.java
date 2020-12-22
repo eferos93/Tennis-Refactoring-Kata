@@ -1,6 +1,14 @@
 
 public class TennisGame1 implements TennisGame {
 
+    public static class Outputs {
+        private final static String DEUCE = "Deuce";
+        private final static String ALL = "All";
+        private final static String ADVANTAGE = "Advantage for #playerName";
+        private final static String WIN = "Win for #playerName";
+        private final static String[] defaults = {"Love", "Fifteen", "Thirty", "Fourty"};
+
+    }
     private Player player1, player2;
 
     public TennisGame1(String player1Name, String player2Name) {
@@ -20,7 +28,7 @@ public class TennisGame1 implements TennisGame {
         int tempScore=0;
         if (arePlayerScoresEven(player1.getScore(), player2.getScore()))
         {
-            return scoreEvenScores(player1.getScore());
+            return finalResultEvenScores(player1.getScore());
         }
         else if (player1.getScore() >= 4 || player2.getScore() >= 4)
         {
@@ -56,25 +64,12 @@ public class TennisGame1 implements TennisGame {
         return score;
     }
 
-    private String scoreEvenScores(int playersScore) {
-        String finalScore = "";
-        switch (playersScore)
-        {
-            case 0:
-                finalScore = "Love-All";
-                break;
-            case 1:
-                finalScore = "Fifteen-All";
-                break;
-            case 2:
-                finalScore = "Thirty-All";
-                break;
-            default:
-                finalScore = "Deuce";
-                break;
-
+    private String finalResultEvenScores(int playersScore) {
+        if (playersScore >= 3) {
+            return Outputs.DEUCE;
         }
-        return finalScore;
+
+        return Outputs.defaults[playersScore] + "-" + Outputs.ALL;
     }
 
     private boolean arePlayerScoresEven(int score, int score2) {
