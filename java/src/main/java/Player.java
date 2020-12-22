@@ -21,21 +21,23 @@ public class Player {
         score++;
     }
 
-    public Optional<Player> playerInAdvantageAgainst(Player otherPlayer) {
-        if (score - otherPlayer.getScore() == 1) {
-            return Optional.of(this);
-        } else if (score - otherPlayer.getScore() == -1){
-            return Optional.of(otherPlayer);
+    public Optional<String> getNameOfThePlayerInAdvantage(Player otherPlayer) {
+        int minScore = score - otherPlayer.getScore();
+        if (minScore == 1) {
+            return Optional.of(name);
+        } else if (minScore == -1){
+            return Optional.of(otherPlayer.getName());
         } else {
             return Optional.empty();
         }
     }
 
-    public Optional<Player> playerWinningAgainst(Player otherPlayer) {
-        if (score - otherPlayer.getScore() >= 2) {
-            return Optional.of(this);
-        } else if (score - otherPlayer.getScore() <= -2) {
-            return Optional.of(otherPlayer);
+    public Optional<String> getNameOfTheWinningPlayer(Player otherPlayer) {
+        int minScore = score - otherPlayer.getScore();
+        if (minScore >= 2) {
+            return Optional.of(name);
+        } else if (minScore <= -2) {
+            return Optional.of(otherPlayer.getName());
         } else {
             return Optional.empty();
         }

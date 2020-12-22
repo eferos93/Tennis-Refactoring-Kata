@@ -26,44 +26,35 @@ public class TennisGame1 implements TennisGame {
 
     public String getScore() {
         //String score = "";
-        int tempScore=0;
-        if (player1.isPlayerScoreEqualTo(player2))
-        {
+        int tempScore = 0;
+        if (player1.isPlayerScoreEqualTo(player2)) {
             return finalResultEvenScores(player1.getScore());
-        }
-        else if (isWinOrTie())
-        {
-
-            Optional<String> score =
-                    player1.playerInAdvantageAgainst(player2).
-                    map(player -> {
-                        return String.format(Outputs.ADVANTAGE, player.getName());
-                    }).or(() -> {
-                       return Optional.of(String.format(Outputs.WIN,
-                               player1.playerWinningAgainst(player2).get().getName()));
-                    });
-            return score.get();
-        }
-        else
-        {
+        } else if (isWinOrTie()) {
+            return player1.getNameOfThePlayerInAdvantage(player2).
+                    map(playerName -> String.format(Outputs.ADVANTAGE, playerName)). //get player's name in advantage
+                    or(() -> Optional.of(String.format(Outputs.WIN,                  //otherwise, get winner's name
+                            player1.getNameOfTheWinningPlayer(player2).get()))).
+                    get();
+        } else {
             String score = "";
-            for (int i=1; i<3; i++)
-            {
-                if (i==1) tempScore = player1.getScore();
-                else { score+="-"; tempScore = player2.getScore();}
-                switch(tempScore)
-                {
+            for (int i = 1; i < 3; i++) {
+                if (i == 1) tempScore = player1.getScore();
+                else {
+                    score += "-";
+                    tempScore = player2.getScore();
+                }
+                switch (tempScore) {
                     case 0:
-                        score+="Love";
+                        score += "Love";
                         break;
                     case 1:
-                        score+="Fifteen";
+                        score += "Fifteen";
                         break;
                     case 2:
-                        score+="Thirty";
+                        score += "Thirty";
                         break;
                     case 3:
-                        score+="Forty";
+                        score += "Forty";
                         break;
                 }
             }
