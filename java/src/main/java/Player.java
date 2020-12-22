@@ -43,7 +43,7 @@ public class Player {
         }
     }
 
-    public boolean isPlayerScoreEqualTo(Player otherPlayer) {
-        return score == otherPlayer.getScore();
+    public boolean isPlayerScoreEqualTo(int otherPlayerScore) {
+        return score == otherPlayerScore;
     }
 }

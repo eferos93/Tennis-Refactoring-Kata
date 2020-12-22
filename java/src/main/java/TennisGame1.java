@@ -7,7 +7,7 @@ public class TennisGame1 implements TennisGame {
         private final static String ALL = "All";
         private final static String ADVANTAGE = "Advantage %s";
         private final static String WIN = "Win for %s";
-        private final static String[] defaults = {"Love", "Fifteen", "Thirty", "Fourty"};
+        private final static String[] defaults = {"Love", "Fifteen", "Thirty", "Forty"};
 
     }
     private Player player1, player2;
@@ -25,9 +25,8 @@ public class TennisGame1 implements TennisGame {
     }
 
     public String getScore() {
-        //String score = "";
-        int tempScore = 0;
-        if (player1.isPlayerScoreEqualTo(player2)) {
+
+        if (player1.isPlayerScoreEqualTo(player2.getScore())) {
             return finalResultEvenScores(player1.getScore());
         } else if (isWinOrTie()) {
             return player1.getNameOfThePlayerInAdvantage(player2).
@@ -35,32 +34,13 @@ public class TennisGame1 implements TennisGame {
                     or(() -> Optional.of(String.format(Outputs.WIN,                  //otherwise, get winner's name
                             player1.getNameOfTheWinningPlayer(player2).get()))).
                     get();
-        } else {
-            String score = "";
-            for (int i = 1; i < 3; i++) {
-                if (i == 1) tempScore = player1.getScore();
-                else {
-                    score += "-";
-                    tempScore = player2.getScore();
-                }
-                switch (tempScore) {
-                    case 0:
-                        score += "Love";
-                        break;
-                    case 1:
-                        score += "Fifteen";
-                        break;
-                    case 2:
-                        score += "Thirty";
-                        break;
-                    case 3:
-                        score += "Forty";
-                        break;
-                }
-            }
-            return score;
         }
-        //return score;
+
+
+        return Outputs.defaults[player1.getScore()] +
+                "-" +
+                Outputs.defaults[player2.getScore()];
+
     }
 
 
@@ -74,9 +54,5 @@ public class TennisGame1 implements TennisGame {
         }
 
         return Outputs.defaults[playersScore] + "-" + Outputs.ALL;
-    }
-
-    private boolean arePlayerScoresEqual() {
-        return player1.getScore() == player2.getScore();
     }
 }
